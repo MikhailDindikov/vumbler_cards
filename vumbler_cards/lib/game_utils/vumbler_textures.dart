@@ -15,7 +15,8 @@ class VumblerTextures {
 
   static Future<void> loadVumblerTextures() async {
     vumblerRandom = Random();
-    vumbZoom = await MethodChannel('flutter_zoom_checker').invokeMethod<num>('getDisplayZoom') ?? 1;
+    final rawZoom = await MethodChannel('flutter_zoom_checker').invokeMethod<num>('getDisplayZoom') ?? 1;
+    vumbZoom = rawZoom < 1 ? 1 : rawZoom;
     vumblerShader = await _getVumblerResource('cassets/frames/mask.png');
     vumblerCard = await _getVumblerResource('cassets/game/card.png');
     vumblerColors
